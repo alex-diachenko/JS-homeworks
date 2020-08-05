@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/rainbow.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <title>Homeworks</title>
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav>
+      <ul>
+        <li>
+          <a href="#hw1">H/w №1</a>
+        </li>
+        <li>
+          <a href="#hw2">H/w №2</a>
+        </li>
+      </ul>
+    </nav>
+      <h1 id="hw1">Homework 1</h1>
+      <div class="task" >
+        
+        <h3>Task 1</h3>
+        <p>Нарисуйте блок-схему алгоритма, который проверяет значение входного параметра x, и если это значение больше или равно 0, то возвращает в качестве результата строку "Число положительное", в противном случае - строку "Число отрицательное"</p>
+        <a href="./random/scheme1.svg">Схема 1</a>
+
+        <h3>Task 2</h3>
+        <p>Нарисуте блок-схему алгоритма суммирования 10 чисел, кратных 5 ( начиная с 0 )</p>
+        <a href="./random/scheme2.svg">Схема 2</a>
+
+        <h3>Task 3</h3>
+        <p>Напилите кодец, который работает с массивом произвольных целых чисел</p>
+        <p>Ваш скрипт должен вывести в консоль все числа больше 50</p>
+      </div>
+
+      <div class="solution" contenteditable="true" id="scriptContent">
+
+        <pre >
+          <code data-language="javascript" > 
+              function hw1() {
+                var numbers = [254, 115, 78, 25, 91, 45, 37];
+
+                for (let i = 0; i < numbers.length; i++) {
+                  if (numbers[i] > 50) {
+                    console.log(numbers[i]);
+                  }
+                }
+              }
+              hw1();
+        
+        </code>
+      </pre>
+    </div>
+
+      <button type="button" id="scriptContent" onclick="changeScript('scriptContent')"> Run </button>
+
+      <hr class="split-homeworks">
+
+      <h1 id="hw2">Homework 2</h1>
+      <div class="task">
+        
+        <h3>Task 1</h3>
+        <p>Создайте пустой массив letters
+          Создайте строку из нескольких слов, например "Backend As A Service"
+          Напилите код, который разбивает эту строку на массив слов и пушит в массив letters первый символ каждого слова
+          Выведите результат в консоль
+          Объедините все элементы массива letters в одну строку и выведите ее в консоль</p>
+
+        <h3>Task 2</h3>
+        <p>Объявите функцию с одним формальным параметром, которая проверяет тип данных переданного аргумента и:
+          если это число, возвращает текущую дату в формате "20.02.2019, 13:21:51"
+          в противном случае возвращает строку "Неверный тип данных"
+          Вызовите функцию</p>
+
+      </div>
+
+      <div class="solution" contenteditable="true" id="scriptContent2">
+
+          <pre >
+            <code data-language="javascript" > 
+            
+            //Task 1
+            let letters = [];
+
+            let str = 'Backend As A Service';
+
+            function getFirstLetter(string) {
+              let res = str.split(" ");
+              res.forEach(word => {
+                letters.push(word.charAt(0))
+              })
+              return letters.join('');
+            }
+            console.log(getFirstLetter(str));
+            
+            //Task 2
+
+            function dataType(data) {
+              if(typeof data === "number" ) {
+                let date = new Date;   
+                
+            
+                let day = date.getDate();
+                if (day < 10) {
+                  day = '0' + day;
+                } 
+            
+                let month = date.getMonth() + 1;
+                if (month < 10) {
+                  month = '0' + month;
+                } 
+            
+                let year = date.getFullYear() % 100;
+                if (year < 10) {
+                  year = '0' + year;
+                } 
+            
+                let hour = date.getHours();
+                if (hour < 10) {
+                  hour = '0' + hour;
+                } 
+            
+                let min = date.getMinutes();
+                if (min < 10) {
+                  min = '0' + min;
+                } 
+            
+                let sec = date.getSeconds();
+                if (sec < 10) {
+                  sec = '0' + sec;
+                } 
+            
+                return day + '.' + month + '.' + year + ', ' + hour + ':' + min + ':' + sec + '.';
+            
+              } else return 'Неверный тип данных'
+            }
+            
+            console.log(dataType(5));
+        </code>
+        </pre>
+      </div>
+
+  <button type="button" id="scriptContent2" onclick="changeScript('scriptContent2')"> Run </button>
+
+      <hr class="split-homeworks">
+      
+  </div>
+
+  
+  <script src="./scripts/rainbow-custom.min.js"></script>
+  <script src="./scripts/genericjs.js"></script>
+  <script src="./scripts/main.js"></script>
+  <!-- <script type="text/javascript">
+
+    function changeScript(elemId) {
+       var Script = document.createElement('script');
+       Script.textContent = document.getElementById(elemId).innerText;
+       document.getElementsByTagName('head')[0].appendChild(Script);
+       document.getElementById(elemId).appendChild(Script)
+       Script.replaceWith(...document.getElementById(elemId).childNodes);
+    }
+    </script> -->
+</body>
+</html>
