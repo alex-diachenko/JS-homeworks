@@ -44,7 +44,7 @@
               function hw1() {
                 var numbers = [254, 115, 78, 25, 91, 45, 37];
 
-                for (let i = 0; i < numbers.length; i++) {
+                for (var i = 0; i < numbers.length; i++) {
                   if (numbers[i] > 50) {
                     console.log(numbers[i]);
                   }
@@ -76,6 +76,11 @@
           в противном случае возвращает строку "Неверный тип данных"
           Вызовите функцию</p>
 
+        <h3>Task 3</h3>
+        <p>Ваша задача: обезопасить свою страницу от внедрения вредоносного кода с помощью функции валидации testUserText
+            функция должна вывести на страницу текст пользователя безопасным способом 
+            ( т.е. текст должен быть выведен "as is" ( как есть ), но код не должен быть выполнен )</p>
+
       </div>
 
       <div class="solution" contenteditable="true" id="scriptContent2">
@@ -84,12 +89,12 @@
             <code data-language="javascript" > 
             
             //Task 1
-            let letters = [];
+            var letters = [];
 
-            let str = 'Backend As A Service';
+            var str = 'Backend As A Service';
 
             function getFirstLetter(string) {
-              let res = str.split(" ");
+              var res = str.split(" ");
               res.forEach(word => {
                 letters.push(word.charAt(0))
               })
@@ -100,53 +105,19 @@
             //Task 2
 
             function dataType(data) {
-              if(typeof data === "number" ) {
-                let date = new Date;   
-                
-            
-                let day = date.getDate();
-                if (day < 10) {
-                  day = '0' + day;
-                } 
-            
-                let month = date.getMonth() + 1;
-                if (month < 10) {
-                  month = '0' + month;
-                } 
-            
-                let year = date.getFullYear() % 100;
-                if (year < 10) {
-                  year = '0' + year;
-                } 
-            
-                let hour = date.getHours();
-                if (hour < 10) {
-                  hour = '0' + hour;
-                } 
-            
-                let min = date.getMinutes();
-                if (min < 10) {
-                  min = '0' + min;
-                } 
-            
-                let sec = date.getSeconds();
-                if (sec < 10) {
-                  sec = '0' + sec;
-                } 
-            
-                return day + '.' + month + '.' + year + ', ' + hour + ':' + min + ':' + sec + '.';
-            
-              } else return 'Неверный тип данных'
+              return typeof data === "number" ? new Date().toLocaleString() : 'Неверный тип данных'
             }
-            
             console.log(dataType(5));
+
         </code>
         </pre>
       </div>
 
-  <button type="button" id="scriptContent2" onclick="changeScript('scriptContent2')"> Run </button>
+    <button type="button" id="scriptContent2" onclick="changeScript('scriptContent2')"> Run </button>
+    <h4>Task 3</h4>
+    <img src="images/task2-3.png" alt="task2-3">
 
-      <hr class="split-homeworks">
+  <hr class="split-homeworks">
       
   </div>
 
@@ -154,15 +125,5 @@
   <script src="./scripts/rainbow-custom.min.js"></script>
   <script src="./scripts/genericjs.js"></script>
   <script src="./scripts/main.js"></script>
-  <!-- <script type="text/javascript">
-
-    function changeScript(elemId) {
-       var Script = document.createElement('script');
-       Script.textContent = document.getElementById(elemId).innerText;
-       document.getElementsByTagName('head')[0].appendChild(Script);
-       document.getElementById(elemId).appendChild(Script)
-       Script.replaceWith(...document.getElementById(elemId).childNodes);
-    }
-    </script> -->
 </body>
 </html>
