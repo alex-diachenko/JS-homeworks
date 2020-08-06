@@ -19,6 +19,9 @@
         <li>
           <a href="#hw2">H/w №2</a>
         </li>
+        <li>
+          <a href="#hw3">H/w №3</a>
+        </li>
       </ul>
     </nav>
       <h1 id="hw1">Homework 1</h1>
@@ -119,6 +122,163 @@
 
   <hr class="split-homeworks">
       
+  <h1 id="hw3">Homework 3</h1>
+  <div class="task" >
+    
+    <h3>Task 1</h3>
+    <p>
+      Объявите функцию без формальных параметров, которая выводит в консоль сама себя и все переданные ей аргументы
+      Вызовите эту функцию с аргументами 10, false, "google"
+    </p> 
+
+
+    <h3>Task 2</h3>
+    <p>
+      Объявите функцию userInfo, которая выводит в консоль сообщение:
+      "Дата регистрации: " + свойство data контекста вызова, если свойство registered имеет значение true
+      "Незарегистрированный пользователь: " + свойство name в противном случае
+      ( используйте переменные в литералах )
+      Создайте два объекта с одинаковым набором свойств:
+      name ( строка )
+      registered ( логическое значение )
+      data ( дата в формате "дд.мм.гг" )
+      Добавьте каждому объекту метод getInfo, который будет ссылкой на функцию userInfo
+      Вызовите каждый метод
+    </p>
+    
+    <h3>Task 3</h3>
+    <p>
+      Есть три объекта: users, posts и comments
+      Написать код функции getPostComments ( postId ),
+      которая возвращает массив всех комментариев к посту
+      с идентификатором postId
+      ( с именем автора комментария и текстом комментария )
+      you should write the code of function  getCurrentPostComments
+    </p>
+  </div>
+
+  <div class="solution" contenteditable="true" id="scriptContent3">
+
+    <pre >
+      <code data-language="javascript" > 
+          //task 1
+  
+          function arg() {
+            return arguments;
+          }
+          console.log(arg(10, false, "google"));
+
+          //task 2
+
+          function userInfo() {
+            if(this.registered === true) {
+              return `"Дата регистрации: " ${this.data}`
+            } else {
+              return `"Незарегистрированный пользователь: " ${this.name}`
+            }
+          }
+          let user1 = {
+            name: 'Stepan',
+            registered: false,
+            data: "12.05.2018",
+            getInfo: userInfo 
+          }
+          let user2 = {
+            name: 'Larisa',
+            registered: true,
+            data: "11.11.2017",
+            getInfo: userInfo 
+          }
+          
+          console.log(user1.getInfo());
+          console.log(user2.getInfo());
+
+          //task 3
+
+          var users = {
+            14587: {
+                    name: "Ivan",
+                    email: "ivan78@gmail.com"
+            },
+            28419: {
+                    name: "Georg",
+                    email: "georg.klep@gmail.com"
+            },
+            41457: {
+                    name: "Stephan",
+                    email: "stephan.borg@gmail.com"
+            }
+          }
+          var posts = {
+            7891451: {
+                    author: 14587,
+                    text: "Imagine we can encapsulate these secondary responsibilities in functions"
+            },
+            7891452: {
+                    author: 28419,
+                    text: `В конструкторе ключевое слово super используется как функция, вызывающая родительский конструктор. 
+                            Её необходимо вызвать до первого обращения к ключевому слову this в теле конструктора. 
+                            Ключевое слово super также может быть использовано для вызова функций родительского объекта`
+            },
+            7891453: {
+                    author: 28419,
+                    text: `DOM не обрабатывает или не вынуждает проверять пространство имен как таковое. 
+                            Префикс пространства имен, когда он связан с конкретным узлом, не может быть изменен`
+            },
+            7891454: {
+                    author: 14587,
+                    text: "Ключевое слово super используется для вызова функций, принадлежащих родителю объекта"
+            }
+          }
+          var comments = {
+            91078454: {
+                    postId: 7891451,
+                    author: 28419,
+                    text: `The static String.fromCharCode() method returns a string created 
+                            from the specified sequence of UTF-16 code units`
+            },
+            91078455: {
+                    postId: 7891451,
+                    author: 41457,
+                    text: `HTML элемент template — это механизм для отложенного рендера клиентского контента, 
+                            который не отображается во время загрузки, но может быть инициализирован при помощи JavaScript`
+            },
+            91078457: {
+                    postId: 7891452,
+                    author: 41457,
+                    text: "Глобальный объект String является конструктором строк, или, последовательностей символов"
+            },
+            91078458: {
+                    postId: 7891452,
+                    author: 14587,
+                    text: `The Element.namespaceURI read-only property returns the namespace URI of the element, 
+                            or null if the element is not in a namespace`
+            }
+          }
+          
+          function getCurrentPostComments ( postId ) {
+            var res = [];
+          
+            for (var key in comments) {
+              if(comments[key].postId === postId) {
+                res.push({
+                  comment: comments[key].text,
+                  author: users[comments[key].author].name
+                })
+              }
+            }
+          
+            return res;
+          }
+          console.log ( getCurrentPostComments ( 7891451 ) )
+    </code>
+  </pre>
+</div>
+
+  <button type="button" id="scriptContent3" onclick="changeScript('scriptContent3')"> Run </button>
+
+  <hr class="split-homeworks">
+
   </div>
 
   
