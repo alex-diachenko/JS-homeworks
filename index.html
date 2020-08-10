@@ -28,6 +28,9 @@
         <li>
           <a href="#hw5">H/w №5</a>
         </li>
+        <li>
+          <a href="#hw6">H/w №6</a>
+        </li>
       </ul>
     </nav>
       <h1 id="hw1">Homework 1</h1>
@@ -505,6 +508,152 @@
   </div>
 
   <button type="button" id="scriptContent5" onclick="changeScript('scriptContent5')"> Run </button>
+
+  <hr class="split-homeworks">
+
+
+  <h1 id="hw6">Homework 6</h1>
+  <div class="task" >
+    
+    <h3>Task 1</h3>
+    <p>
+      Создайте массив tags с именами валидных тегов HTML5<br>
+      Теперь создайте массив classes с именами классов<br>
+      ( число элементов в массиве classes должно быть не меньше, чем число элементов массива tags )<br>
+      Создайте элемент style и вставьте его в head документа<br>
+      Добавьте контент элемента style с описанием классов, имена которых находятся в массиве classes<br>
+      Итерируйте массив tags, создавая соответствующие элементы и вставляя их на страницу, добавляя каждому элементу класс из массива classes
+    </p> 
+
+    <h3>Task 2</h3>
+    <p>
+      Результат должен быть аналогичен тому, что получится в предыдущем упражнении<br>
+      Однако исходный массив tags должен быть массивом объектов, каждый из которых содержит не только имя тега элемента, <br>
+      но и его атрибуты, а так же хотя бы один обработчик события<br>
+      Таким образом, массив classes нам уже не нужен, но кроме стилизации элементов нужно еще добавить их контент,<br>
+      используя как атрибуты тегов, так и свойства элементов DOM
+    </p>
+    
+    <h3>Task 3</h3>
+    <p>
+      Напилить код, который выбирает все элементы-потомки body ( :warning: кроме элементов script ) и добавляет им класc:<br>
+      .redBack {<br>
+          background-color: red!important;<br>
+      }<br>
+      Альтернативный вариант - выбрать все заранее заданные элементы:<br>
+      var tags = [ "header", "footer", "main", "div", "p" ]<br>
+      Запустить код в консоли любой страницы<br>
+      Подсказка: используйте методы объекта classList
+    </p>
+  </div>
+
+  <div class="solution" contenteditable="true" id="scriptContent6">
+
+    <pre>
+      <code data-language="javascript"> 
+        //task 1
+
+        var tags = ['div', 'p', 'h1', 'h2', 'span'];
+        var classes = ['block', 'text', 'header1', 'header2', 'random'];
+        var style = document.createElement ( 'style' );
+        style.innerText = `
+          .block { border: 1px solid blue; width: 500px; height: 20px; }
+          .text { background: green; width: 500px; height: 20px; }
+          .header1 { background: yellow; width: 500px; height: 20px;}
+          .header2 { background: brown; width: 500px; height: 20px;}
+          .random { background: purple; width: 500px; height: 20px; display: block;}
+        `;
+        document.head.appendChild ( style );
+
+        tags.forEach((val) => {
+          var element = document.createElement(val)
+          document.body.appendChild(element);  
+        })
+        var elements = document.querySelectorAll( 'body > *' );
+        elements.forEach((val,idx) => val.classList.add(classes[idx]));
+
+        //task 2
+
+        var tags = [
+          {
+            tagTitle: "div",
+            classTitle: "block",
+            style: `width: 200px; height: 100px; background-color: green;`,
+            event1: function(event){
+              this.style.backgroundColor = "red"
+            },
+            event2: function(event){
+              this.style.backgroundColor = "green"
+            },
+            innerText: 'This is div!'
+          },
+          {
+            tagTitle: "p",
+            classTitle: "text",
+            style: `width: 200px; height: 100px; background-color: green;`,
+            event1: function(event){
+              this.style.backgroundColor = "yellow"
+            },
+            event2: function(event){
+              this.style.backgroundColor = "green"
+            },
+            innerText: 'This is paragraph!'
+          },
+          {
+            tagTitle: "h1",
+            classTitle: "header1",
+            style: `width: 200px; height: 100px; background-color: green;`,
+            event1: function(event){
+              this.style.backgroundColor = "brown"
+            },
+            event2: function(event){
+              this.style.backgroundColor = "green"
+            },
+            innerText: 'This is h1'
+          },
+          {
+            tagTitle: "h2",
+            classTitle: "header2",
+            style: `width: 200px; height: 100px; background-color: green;`,
+            event1: function(event){
+              this.style.backgroundColor = "blue"
+            },
+            event2: function(event){
+              this.style.backgroundColor = "green"
+            },
+            innerText: 'This is h2'
+          },
+        ];
+      
+      
+        tags.forEach(tag => {
+          var element = document.createElement(tag.tagTitle);
+          element.style = tag.style
+          element.innerText = tag.innerText
+          element.onmouseover = tag.event1;
+          element.onmouseout = tag.event2;
+          document.body.appendChild(element);
+        })
+
+        //task 3
+
+        var style = document.createElement ( 'style' );
+        style.innerText = `
+            .redBack {
+              background-color: red!important;
+            }
+        `;
+        document.head.appendChild ( style );
+        var elements = document.querySelectorAll( '*' );
+        elements.forEach((val) => {
+          if(val !== 'script') {
+            val.classList.add('redBack')
+          }
+        })
+         
+      </code>
+    </pre>
+  </div>
 
   <hr class="split-homeworks">
 
