@@ -31,6 +31,9 @@
         <li>
           <a href="#hw6">H/w №6</a>
         </li>
+        <li>
+          <a href="#hw7">H/w №7</a>
+        </li>
       </ul>
     </nav>
       <h1 id="hw1">Homework 1</h1>
@@ -651,6 +654,151 @@
           }
         })
          
+      </code>
+    </pre>
+  </div>
+
+  <hr class="split-homeworks">
+
+  <h1 id="hw7">Homework 7</h1>
+  <div class="task" >
+    
+    <h3>Task 1</h3>
+    <p>
+      Создайте элемент 'p', при клике на котором появляется картинка размером 100px<br>
+      При наведении указателя мышки на картинку ее размер должен плавно увеличиваться до 200px<br>
+      При клике на картинке она должна исчезать
+    </p> 
+
+    <h3>Task 2</h3>
+    <p>
+      Создайте коллекцию вложенных друг в друга html-элементов с обработчиками событий click, mouseover, mouseout<br>
+      Установите атрибуты стиля width и height такие, чтобы вложенные элементы были меньше размером, чем родитель<br>
+      Установите значение #ff00ff50 атрибута background-color каждому элементу<br>
+      Установите значение dotted 1px yellow; атрибута border каждому элементу<br>
+      При наступлении события mouseover значение атрибута background-color должно меняться на #ffff0050<br>
+      При наступлении события mouseout атрибуту background-color должно устанавливаться исходное значение<br>
+      При наступлении события click элемент должен быть удален<br>
+      При наведении мышки на элемент должна появляться подсказка с его именем ( "first", "second", "third", "fourth" )
+    </p>
+    
+    <h3>Task 3</h3>
+    <p>
+      Условия предыдущего задания изменить так:<br>
+      при удалении элемента его потомки должны оставаться
+    </p>
+  </div>
+
+  <div class="solution" contenteditable="true" id="scriptContent6">
+
+    <pre>
+      <code data-language="javascript"> 
+        //Task 1
+
+        var paragraph = document.createElement("p");
+        paragraph.innerText=`Random text`
+        var img =  document.createElement("img");
+        img.src = "https://cdn.wallpapersafari.com/69/80/Dp4IwZ.png"
+        img.style = `display: none; `
+
+        paragraph.onclick = function(event) {
+          img.style = `display: block; width: 100px; height: auto; transition: 2s ease; position: absolute; top: 50px;`
+        }
+        img.onmouseover = function(event) {
+          img.style = `display: block; width: 200px; height: auto; transition: 2s ease; position: absolute; top: 50px;`  
+        }
+        img.onclick = function(event) {
+          img.style = `display: none;`
+        }
+
+        document.body.appendChild(img); 
+        document.body.appendChild(paragraph); 
+
+        //Task 2
+         
+        var div = document.createElement('div');
+        var p = document.createElement('p');
+        var a = document.createElement('a');
+        var span = document.createElement('span');
+        div.appendChild(p);
+        p.appendChild(a);
+        a.appendChild(span)
+        div.style = `width: 300px; height: 300px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        p.style = `width: 230px; height: 230px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        a.style = `width: 180px; height: 180px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        span.style = `width: 100px; height: 100px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+
+        var collection = [ div, p, a, span ];
+        var hints = ["first", "second", "third", "fourth"];
+
+        collection.forEach((tag, idx) => {
+
+          tag.onmouseover = function over ( event ) {
+            this.style.backgroundColor = "#ffff0050";
+          }
+          tag.onmouseout = function out ( event ) {
+            this.style.backgroundColor = "#ff00ff50";
+          }
+          tag.onclick = function clickHandler ( event ) {
+            var elem = event.target
+            var elemChildren = event.target.children;
+            elem.remove()
+          }
+          tag.title = hints[idx];
+        })
+
+        document.body.appendChild(div);
+
+        //Task 3
+
+        var div = document.createElement('div');
+        var nav = document.createElement('nav');
+        var ul = document.createElement('ul');
+        var li = document.createElement('li');
+        var p = document.createElement('p');
+        var a = document.createElement('a');
+        var span = document.createElement('span');
+        div.appendChild(nav);
+        nav.appendChild(ul);
+        ul.appendChild(li);
+        li.appendChild(p);
+        p.appendChild(a);
+        a.appendChild(span);
+        div.style = `width: 450px; height: 450px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        nav.style = `width: 400px; height: 400px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        ul.style = `width: 350px; height: 350px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        li.style = `width: 300px; height: 300px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        p.style = `width: 250px; height: 250px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        a.style = `width: 210px; height: 210px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+        span.style = `width: 100px; height: 100px; background-color: #ff00ff50; border: 1px dotted yellow; display: block;`
+
+        var collection = [ div, nav, ul, li, p, a, span ];
+        var hints = [1, 2, 3, 4, 5, 6, 7];
+
+        collection.forEach((tag, idx) => {
+
+          tag.onmouseover = function enter ( event ) {
+            this.style.backgroundColor = "#ffff0050";
+          }
+          tag.onmouseout = function leave ( event ) {
+            this.style.backgroundColor = "#ff00ff50";
+          }
+          tag.onclick = function clickHandler ( event ) {
+            var elem = event.target;
+            var elemChildren = event.target.children;
+            
+            [...elemChildren].forEach(element => {
+              event.target.parentElement.insertAdjacentElement('beforeEnd', element);
+            });
+
+            elem.remove();
+          }
+
+          tag.title = hints[idx];
+
+        })
+
+        document.body.appendChild(div);
       </code>
     </pre>
   </div>
