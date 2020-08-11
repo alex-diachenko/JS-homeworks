@@ -34,6 +34,9 @@
         <li>
           <a href="#hw7">H/w №7</a>
         </li>
+        <li>
+          <a href="#hw8">H/w №8</a>
+        </li>
       </ul>
     </nav>
       <h1 id="hw1">Homework 1</h1>
@@ -689,7 +692,7 @@
     </p>
   </div>
 
-  <div class="solution" contenteditable="true" id="scriptContent6">
+  <div class="solution" contenteditable="true" id="scriptContent7">
 
     <pre>
       <code data-language="javascript"> 
@@ -799,6 +802,102 @@
         })
 
         document.body.appendChild(div);
+      </code>
+    </pre>
+  </div>
+
+  <hr class="split-homeworks">
+
+  <h1 id="hw8">Homework 8</h1>
+  <div class="task" >
+    
+    <h3>Task 1</h3>
+    <p>
+      Напилите код, выводящий на страницу текущее время в течение 100 секунд<br>
+      Подсказка: создайте элемент, в котором будет отображаться текущее время<br>
+      Контент элемента должен обновляться каждую секунду
+    </p> 
+
+    <h3>Task 2</h3>
+    <p>
+      Завершите код рекурсивной функции typeMessage так,<br>
+      чтобы при ее вызове на страницу выводился один символ в секунду
+    </p>
+    
+    <h3>Task 3</h3>
+    <p>
+      Нужно сделать так, чтобы у всех экзепляров, созданных конструктором User, <br>
+      был унаследованный метод counter(), который считает созданные конструктором экземпляры<br>
+      Каждый вызов конструктора увеличивает счетчик экземпляров на 1 <br>
+      и помещать новое значение счетчика в свойство id созданного экземпляра:<br>
+      После выполнения кода:<br>
+      users[1].id = users[1].counter()<br>
+      свойство id экземпляра не должно измениться, так же, как и значение счетчика
+    </p>
+  </div>
+
+  <div class="solution" contenteditable="true" id="scriptContent7">
+
+    <pre>
+      <code data-language="javascript"> 
+        //Task 1
+
+        var p = document.createElement('p');
+
+        let interval = setInterval (() => {
+          var time = new Date();
+          p.innerHTML = `Real time:  ${ time.toLocaleTimeString('eu-UA', { hour12: false }) }`;
+        }, 1000)
+        setTimeout(() => { clearInterval(interval); }, 100000);
+
+        document.body.appendChild(p);
+
+        //Task 2
+
+        var typeMessage = ( function ( velocity ) {
+          let container = document.getElementById ( "demo" ) ?
+              document.getElementById ( "demo" ) :
+              document.body.appendChild (
+                  document.createElement ( "h3" )
+              )
+          container.style = `color: magenta;`
+          var index = 0
+          return function ( message ) {
+          var i = 0;
+            var int = setInterval(function () {
+              container.innerHTML += `${ message[i]}`
+              if (i === message.length - 1) {
+                clearInterval(int);
+              }
+              i++;
+            }, 1000);
+          }
+        })()
+        
+        typeMessage ( `Welcome to the hell` )
+
+        //Task 3
+
+        var count = 0;
+        function User ( name ) {
+          var counter = function() {
+            return count = count + 1; 
+          }
+          
+          this.name = name
+          this.id = counter()
+        }
+        
+        var users = [
+          new User ( "Семен" ),
+          new User ( "Антон" ),
+          new User ( "Демьян" ),
+          new User ( "Василий" )
+        ]
+        
+        console.log(users)
+        console.log(users[1].id = users[1].counter());
+
       </code>
     </pre>
   </div>
