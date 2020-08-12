@@ -843,13 +843,16 @@
         //Task 1
 
         var p = document.createElement('p');
-
-        let interval = setInterval (() => {
+        (function iterate(i) {
           var time = new Date();
-          p.innerHTML = `Real time:  ${ time.toLocaleTimeString('eu-UA', { hour12: false }) }`;
-        }, 1000)
-        setTimeout(() => { clearInterval(interval); }, 100000);
-
+          
+          setTimeout(function() {
+              p.innerHTML = `Real time:  ${ time.toLocaleTimeString('eu-UA', { hour12: false }) }`;
+                if (i < 100) {
+                  iterate(i + 1);
+                }
+            }, 1000);
+        })(0);
         document.body.appendChild(p);
 
         //Task 2
@@ -863,16 +866,15 @@
           container.style = `color: magenta;`
           var index = 0
           return function ( message ) {
-          var i = 0;
             var int = setInterval(function () {
-              container.innerHTML += `${ message[i]}`
-              if (i === message.length - 1) {
+              container.innerHTML += `${ message[index]}`
+              if (index === message.length - 1) {
                 clearInterval(int);
               }
-              i++;
-            }, 1000);
+              index++;
+            }, velocity * 1000);
           }
-        })()
+        })(1)
         
         typeMessage ( `Welcome to the hell` )
 
