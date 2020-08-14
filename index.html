@@ -40,6 +40,9 @@
         <li>
           <a href="#hw9">H/w №9</a>
         </li>
+        <li>
+          <a href="#hw10">H/w №10</a>
+        </li>
       </ul>
     </nav>
       <h1 id="hw1">Homework 1</h1>
@@ -1044,6 +1047,206 @@
 
   <hr class="split-homeworks">
 
+  <h1 id="hw10">Homework 10</h1>
+  <div class="task" >
+    
+    <h3>Task 1</h3>
+    <p>
+      Логирование поступающих сообщений в объекте log
+      Задан массив сообщений и пустой объект log:<br>
+      Далее, есть функция, отправляющая сообщения в случайном порядке в случайное время: sendMessage()<br>
+      Обратите внимание, что эта функция получает при вызове не только текст сообщения, <br>но и колбэк-функцию, которой нужно передать это сообщение
+      С помощью кода:<br>
+      инициируем отправку сообщений
+      Ваша задача - напилить код функции handler,<br>
+      которая получает сообщение и заносит его в объект log
+      в виде нового свойства,<br>
+      значение которого - текст поступившего сообщения,<br>
+      а ключ ( имя свойства ) - это время поступления сообщения ( в виде строки )
+    </p> 
+
+    <h3>Task 2</h3>
+    <p>
+      Допилите код конструктора User, дополнив его акцессорами приватного свойства presence так, чтобы после выполнения скрипта:
+      console.info ( user.presence ) в консоли было:<br>
+      "Ivan is absent" а после выполнения кода:<br>
+      user.presence = "+" console.info ( user.presence )<br>
+      в консоли было: "Ivan is present"
+    </p>
+    
+    <h3>Task 3</h3>
+    <p>
+      Объявить функцию-конструктор User<br>
+      Конструктор должен принимать аргументы, описывающие юзера
+      Статические свойства и методы конструктора<br>
+      У конструктора должны быть следующие не наследуемые экземплярами свойства и методы<br>
+      Собственные свойства экземпляров
+      name ( имя пользователя )
+      email
+      photoURL ( URL фотографии пользователя )<br>
+      Конструктор должен иметь дефолтные значения для всех аргументов<br>
+      дефолтное значение URL фотографии пользователя должно быть результатом работы статического метода getAvatar<br>
+      Унаследованные свойства экземпляров
+      неперечислимое неизменяемое свойство messageBox - элемент DOM<br>
+      messageBox - это контейнер, куда будут выводиться сообщения всех пользователей и admin<br>
+      при выводе сообщения пользователя в messageBox должны отображаться его аватар и имя<br>
+      унаследованные методы write и read
+      запись осуществляется в messageBox, чтение - из messageBox<br>
+      при вводе в messageBox пишущий сообщение идентифицируется как админ, выводится его аватар и имя
+    </p>
+  </div>
+
+  <div class="solution" contenteditable="true" id="scriptContent10">
+
+    <pre>
+      <code data-language="javascript"> 
+        //Task 1
+
+        var messages = [
+          "backspace",
+          "enter",
+          "shift",
+          "control",
+          "delete",
+          "space",
+          "subtract"
+        ]
+
+        var log = {}
+
+        var sendMessage = ( message, callback ) => 
+        setTimeout (
+            () => callback ( message ),
+            Math.random () * 7000
+        )
+
+        function handler (message) {
+          Object.defineProperty ( log, getKey(), {
+              value: message,
+              enumerable: true,
+              configurable: true
+          })
+        }	
+
+        messages.forEach (
+          message => sendMessage ( message, handler )
+        )
+
+        getKey = () => {
+        var key = new Date().toLocaleString().split(", ")[1]
+        return log [ key ] ? key + "[2]" : key
+        }
+
+        console.log (log)
+
+        //Task2
+
+        function User ( name ) {
+          this.name = name
+          var presence = false
+        
+          Object.defineProperty(this, "presence", {
+            get: () => {
+              if(presence) {
+                return `${this.name} is present`
+              } else  return `${this.name} is absent`
+            },
+          
+            set: newPresense =>	presence = newPresense
+          });
+        }
+        
+        let user = new User ( "Ivan" )
+        console.log(user);
+        console.log ( user.presence )
+        user.presence = "+"
+        console.log ( user.presence )
+        console.log(user);
+       
+        //Task 3
+
+        function User(name, email) {
+          this.name = name
+          this.email = email
+        
+          this.write = (message, image) => {
+            let image1 = document.getElementById('imgId');
+            let paragraph = document.getElementById('pId');
+            let text = document.getElementById('textId');
+        
+            text.innerText = message;
+            paragraph.innerText = this.name;
+            image1.src = image
+          };
+        }
+        
+        User.avatars = [
+          "https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/512/User_Avatar-31-512.png",
+          "http://icons.iconarchive.com/icons/hopstarter/face-avatars/256/Male-Face-L3-icon.png",
+          "https://findicons.com/files/icons/1072/face_avatars/300/i05.png",
+          "http://www.iconarchive.com/download/i51043/hopstarter/halloween-avatars/Gomez.ico",
+          "http://icons.iconarchive.com/icons/hopstarter/halloween-avatars/256/Zombie-2-icon.png",
+          "https://vignette.wikia.nocookie.net/yogscast/images/8/8a/Avatar_Turps_2015.jpg"
+        ]
+        
+        User.admin = {
+          photoURL: "https://i.pinimg.com/originals/3d/47/4f/3d474f82ff71595e8081f9a120892ae8.gif",
+          name: "admin"
+        }
+        
+        User.messageBox = (function() {
+          let mainDiv = document.createElement('div');
+          let wrapper = document.createElement('div')
+          let img = document.createElement('img');
+          let p =  document.createElement('p');
+          let textarea = document.createElement('textarea');
+          img.id = 'imgId';
+          p.id = 'pId';
+          textarea.id = 'textId';
+          textarea.placeholder = `User...`
+        
+          mainDiv.style = `width: 400px; height: 350px; margin: 0 auto; border: 1px solid black;`
+          wrapper.style=`width: 100%; height: 90px; background: black; display: flex;`
+          img.style = `width: 25%; height: 70px; padding: 10px;`
+          p.style = `width: 75%; color: white; font-size: 17px; padding: 15px 10px;`
+          textarea.style = `width: 100%; height: 260px; resize: none;`
+          wrapper.appendChild(img);
+          wrapper.appendChild(p);
+          mainDiv.appendChild(wrapper);
+          mainDiv.appendChild(textarea);
+        
+          textarea.oninput = function()  {
+            img.src = User.admin.photoURL
+            p.innerText = User.admin.name
+            textarea.innerText = ` `;
+          }
+          document.body.appendChild(mainDiv);
+        })()
+        
+        var users = [
+          new User ( "Иван" ),
+          new User ( 'Alex', "alex@gmail.com" ),
+          new User ( 'Bob', "bob777@gmail.com" ),
+          new User ( 'Dima', "dima888@gmail.com" ),
+          new User ( 'Fima', "fima999@gmail.com" )
+        ]
+        
+        var k = 1
+        users.forEach ( 
+          function ( user, idx ) {
+              setTimeout ( 
+                  function () {
+                      user.write ( `Hello, I'm ${user.name}`, User.avatars[idx] )
+                  }, 3000 * k++
+              )
+          }
+        )
+
+      </code>
+    </pre>
+  </div>
+
+  <hr class="split-homeworks">
 
   </div>
 

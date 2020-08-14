@@ -40,12 +40,16 @@ body:before {
   height: 2px;
   background: grey;
   position: absolute;
-  top: 40px;
+  top: 65px;
 }
 nav ul {
   list-style: none;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+nav ul li {
+  margin: 5px;
 }
 .task {
     width: 90%;
